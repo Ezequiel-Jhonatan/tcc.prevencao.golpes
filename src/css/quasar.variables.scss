@@ -1,25 +1,38 @@
-// Quasar Sass (& SCSS) Variables
+// Variáveis de tema do Quasar (cores, tipografia).
 // --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
+// Fonte única dos valores visuais e de acessibilidade da plataforma.
+// A paleta é provisória e pode mudar depois da avaliação de acessibilidade.
+// Contrastes calculados pela fórmula WCAG (ver docs/planos/01-home.md).
 
-// Check documentation for full list of Quasar variables
+// Texto
+$texto: #4a2e1f; // marrom escuro, 11,7:1 sobre o fundo
+$texto-secundario: #7a5240; // marrom médio, usar só sobre fundos claros
 
-// Your own variables (that are declared here) and Quasar's own
-// ones will be available out of the box in your .vue/.scss/.sass files
+// Fundo e identidade
+$fundo: #fff8f0; // creme
+$laranja-pastel: #f9c49a; // cor de identidade, 7,9:1 com o texto marrom
+$laranja-claro: #fde3cf; // trilho da barra de progresso, fundos suaves
+$laranja-forte: #c0662e; // preenchimento da barra e contorno de foco (3,3:1)
+$laranja-terroso: #a8521c; // manchetes, capitular e marcadores (5,1:1 no fundo)
 
-// It's highly recommended to change the default colors
-// to match your app's branding.
-// Tip: Use the "Theme Builder" on Quasar's documentation website.
-
-$primary: #1976d2;
-$secondary: #26a69a;
-$accent: #9c27b0;
+// Cores do Quasar
+// Atenção: nunca use texto branco sobre $primary (contraste de 1,6:1).
+$primary: $laranja-pastel;
+$secondary: $laranja-forte;
+$accent: #e1d5f0;
 
 $dark: #1d1d1d;
 $dark-page: #121212;
 
-$positive: #21ba45;
-$negative: #c10015;
-$info: #31ccec;
-$warning: #f2c037;
+$positive: #2e7d4f; // selo "Concluído", texto branco (5,0:1)
+$negative: #b3261e;
+$info: #cfe0f2;
+$warning: #f8e6a8;
+
+// Tipografia: texto base de 20px para o público idoso.
+// Em rem para respeitar o zoom do navegador (1rem = 16px).
+$body-font-size: 1.25rem;
+$body-line-height: 1.5;
+$button-font-size: 1.125rem;
+$button-padding: 8px 20px;
+$generic-border-radius: 12px;

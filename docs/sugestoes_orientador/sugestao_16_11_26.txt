@@ -1,0 +1,10 @@
+Tela HOME
+* Barra de progresso pode tirar por enquanto. 
+* Título e texto precisam ser maiores. 
+* Falta uma instrução. Informando para o usuário que abaixa cada um é um tipo de golpe e ele deve clicar para iniciar. 
+* Os cards podem ser de uma cor mais clara ou cinza pra mostrar que ainda não foram feitos.
+
+TELAS CONTEUDOS
+* Pelo menos na versão desktop a imagem de exemplo e o texto devem estar ao lado (exemplo_orientador.html). Pro usuário ver ao mesmo tempo. 
+* A imagem do golpe pode ser no formato de um celular, igual o exemplo que informei anteriomente. 
+* O texto abaixo tá muito extenso e pouco visual. A ideia é simplificar e resumir mesmo.

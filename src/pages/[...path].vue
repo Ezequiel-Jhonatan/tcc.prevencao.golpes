@@ -1,21 +1,36 @@
+<!-- Página 404: qualquer rota que não existe. -->
 <template>
-  <div
-    class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center"
-  >
-    <div>
-      <div style="font-size: 30vh"> 404 </div>
+  <div class="pagina-404 fullscreen column flex-center q-pa-md text-center">
+    <q-icon name="explore_off" size="96px" aria-hidden="true" />
 
-      <div class="text-h2" style="opacity: 0.4"> Oops. Nothing here... </div>
+    <h1 class="q-mt-md">Página não encontrada</h1>
 
-      <q-btn
-        class="q-mt-xl"
-        color="white"
-        text-color="blue"
-        unelevated
-        to="/"
-        label="Go Home"
-        no-caps
-      />
-    </div>
+    <p class="q-mt-md q-mb-xl">
+      O endereço que você abriu não existe. Não se preocupe, é só voltar para o
+      início.
+    </p>
+
+    <q-btn
+      to="/"
+      color="primary"
+      icon="home"
+      label="Voltar para o início"
+      no-caps
+      unelevated
+      class="botao-principal"
+    />
   </div>
 </template>
+
+<script>
+export default {
+  name: 'PaginaNaoEncontrada'
+}
+</script>
+
+<style lang="scss" scoped>
+.pagina-404 {
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+</style>
