@@ -35,14 +35,15 @@ Plataforma web educativa (TCC) para prevenção de golpes aplicados por aplicati
 
 - Mostra um celular com uma conversa nova do mesmo tipo de golpe e, junto, **3 opções de atitude** (1 certa e 2 erradas). No desktop, as opções ficam ao lado do celular; no celular, abaixo.
 - **Acertou**: a plataforma parabeniza o usuário e marca o conteúdo como concluído.
-- **Errou**: uma caixa de retorno (que não some sozinha) conforta o usuário, com tom acolhedor e sem culpar, e explica por que não foi uma boa escolha. A conversa no celular continua, mostrando o que aconteceria, e vem um **cenário novo**: "Você já passou seus dados. E agora, o que fazer?", com outras 3 opções.
+- **Errou**: uma caixa de retorno (que não some sozinha) conforta o usuário, com tom acolhedor e sem culpar, e explica por que não foi uma boa escolha. O título é "Há uma opção mais segura", e a cor é um **âmbar suave**, nunca vermelho, que transmite falha e desanima o público idoso. A conversa no celular continua, mostrando o que aconteceria, e vem um **cenário novo**: "Você já passou seus dados. E agora, o que fazer?", com outras 3 opções.
 - No cenário novo, a opção errada fica marcada e o usuário tenta de novo. Ao acertar, é elogiado, mas **o conteúdo não é concluído**: ele é convidado a refazer o simulado e acertar logo na primeira pergunta.
+- Quando a opção errada é **tocar num link**, o celular pode trocar a conversa pela **página falsa** que abriria: o print do site imitado, com o pedido do golpe por cima em texto de verdade e a legenda dizendo que a página é falsa ([plano 05](planos/05-sms-operadora.md)).
 - O roteiro de cada simulado é definido como dados no conteúdo ([plano 04](planos/04-simulado-gerente-banco.md)).
 
 ### Glossário
 
-- Lista de termos técnicos, gírias e palavras incomuns para pessoas idosas, com explicação simples.
-- É a **mesma fonte** usada pelas lupas dos conteúdos, então a explicação de um termo é sempre igual nos dois lugares.
+- Lista de termos técnicos, gírias e palavras incomuns para pessoas idosas, com explicação simples, em **ordem alfabética** ([plano 06](planos/06-glossario.md)).
+- É a **mesma fonte** usada pelas lupas dos conteúdos, então a explicação de um termo é sempre igual nos dois lugares. Toda palavra marcada com a lupa num conteúdo aparece na lista.
 
 ### Caí num golpe, e agora?
 
@@ -92,8 +93,8 @@ Cada conteúdo segue esta estrutura:
 **Na plataforma:**
 
 - **Mensagem de Gerente do Banco**: texto completo e resumido ([plano 02](planos/02-conteudo-gerente-banco.md), ajustado pelo [plano 03](planos/03-ajustes-orientador.md))
-- **Evite ser enganado**: sem texto ainda
-- **Proteção de dados**: sem texto ainda
+- **SMS da Operadora**: pontos do programa de fidelidade "vencendo hoje" e página falsa que cobra frete no cartão; texto e simulado ([plano 05](planos/05-sms-operadora.md)). Substituiu "Evite ser enganado".
+- **Mensagem do INSS**: falso atendente ameaça bloquear a aposentadoria e pede foto do documento e uma selfie, usadas para fazer empréstimos no nome da vítima; texto e simulado ([plano 07](planos/07-mensagem-inss.md)). Substituiu "Proteção de dados": o tema continua, contado por um golpe concreto.
 
 **Candidatos** (golpes por aplicativo de mensagem citados nas referências):
 
@@ -115,3 +116,5 @@ Cada conteúdo segue esta estrutura:
 
 - Ministério dos Direitos Humanos e da Cidadania. _Cartilha de Apoio à Pessoa Idosa: enfrentamento à violência patrimonial e financeira_, 2024. https://www.gov.br/mdh/pt-br/assuntos/noticias/2024/outubro/saiba-como-prevenir-a-violencia-patrimonial-e-financeira-contra-pessoas-idosas/cartilha_violencia_patrimonial_pessoa_idosa_2024.pdf
 - CERT.br. _Fascículos da Cartilha de Segurança para Internet_, especialmente "Golpes: Não se Deixe Enganar", "Golpes: Evite Fraudes" e "Golpes: Caiu? Veja o que Fazer". https://cartilha.cert.br/fasciculos/
+- Secretaria de Comunicação Social (Secom). _Aposentados e pensionistas não precisam ir ao banco para fazer prova de vida_, 2025. https://www.gov.br/secom/pt-br/fatos/brasil-contra-fake/noticias/2025/03/aposentados-e-pensionistas-nao-precisam-ir-ao-banco-para-fazer-prova-de-vida
+- INSS. _É fake! Golpistas se passam pela Central 135 para enganar segurados sobre a Prova de Vida_. https://www.gov.br/inss/pt-br/assuntos/e-fake-golpistas-se-passam-pela-central-135-para-enganar-segurados-sobre-a-prova-de-vida

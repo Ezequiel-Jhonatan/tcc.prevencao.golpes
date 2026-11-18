@@ -125,7 +125,7 @@ A opção certa fica no meio, para não ser sempre a primeira.
 
 ```
 ┌───────────────────────────────────────────┐
-│ ⓘ Não foi uma boa escolha                 │  ← fundo rosa claro, ícone e texto
+│ ⓘ Há uma opção mais segura                │  ← fundo âmbar claro, ícone e texto
 │ Calma, isso acontece com muita gente.     │    (a cor nunca é o único sinal)
 │ Mas banco nenhum pede senha ou código...  │
 └───────────────────────────────────────────┘
@@ -166,12 +166,12 @@ simulado: {
 
 ### Componentes
 
-| Componente                 | Papel                                                                                                                                                          |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CelularConversa`          | Reaproveitado sem mudança. As mensagens extras são somadas à lista                                                                                             |
-| `OpcoesSimulado` (novo)    | Pergunta (h2) e 3 botões grandes com o texto completo. Emite `escolher`. Opção errada já tentada fica marcada e desabilitada                                   |
-| `RetornoSimulado` (novo)   | Caixa de retorno: variante `acerto` (verde, check) ou `erro` (rosa, ícone de informação), título e explicação. Anunciada pelo leitor de tela (`role="status"`) |
-| Página `[id]/simulado.vue` | Guarda a etapa atual, as opções já tentadas e o resultado. Marca o conteúdo como concluído ao acertar                                                          |
+| Componente                 | Papel                                                                                                                                                           |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CelularConversa`          | Reaproveitado sem mudança. As mensagens extras são somadas à lista                                                                                              |
+| `OpcoesSimulado` (novo)    | Pergunta (h2) e 3 botões grandes com o texto completo. Emite `escolher`. Opção errada já tentada fica marcada e desabilitada                                    |
+| `RetornoSimulado` (novo)   | Caixa de retorno: variante `acerto` (verde, check) ou `erro` (âmbar, ícone de informação), título e explicação. Anunciada pelo leitor de tela (`role="status"`) |
+| Página `[id]/simulado.vue` | Guarda a etapa atual, as opções já tentadas e o resultado. Marca o conteúdo como concluído ao acertar                                                           |
 
 O foco do teclado vai para a caixa de retorno depois de cada escolha, para quem usa leitor de tela ou teclado não se perder.
 
@@ -225,3 +225,7 @@ Feita com o Playwright em 1280×800, 768×1024, 390×844 e 360×780.
 - O foco vai para a caixa de retorno a cada escolha. No celular, a tela rola até ela, e a conversa nova fica visível logo acima.
 - Botões das opções com 112px a 196px de altura em 360px, com o texto completo.
 - Sem erros ou avisos no console e sem rolagem horizontal em nenhuma largura.
+
+## 11. Ajuste (17/11/2026)
+
+O rosa e o título "Não foi uma boa escolha" lembravam falha e podiam desanimar o idoso. O erro passou a usar um **âmbar suave** (`$ambar-*` em `quasar.variables.scss`) e o texto **"Há uma opção mais segura"**, tanto no título da caixa de retorno quanto no aviso da opção já tentada. Contrastes: texto marrom 11,1:1 e título âmbar escuro 6,9:1 sobre o fundo âmbar claro.

@@ -7,7 +7,9 @@
 
   Fluxo: cada etapa tem uma pergunta e opções. A opção errada mostra a
   explicação e pode levar a outra etapa (ex.: "você passou seus dados, e
-  agora?"), continuando a conversa no celular. A opção certa encerra.
+  agora?"), continuando a conversa no celular. Se a opção errada for tocar
+  num link, o celular passa a mostrar a página falsa (campo `pagina`).
+  A opção certa encerra.
 
   Regra de conclusão (decisão 2 do plano): o conteúdo só é concluído quando
   a pessoa acerta sem ter errado antes. Quem acertou depois de um erro é
@@ -47,7 +49,8 @@
         <CelularConversa
           :contato="conteudo.simulado.contato"
           :mensagens="conversa"
-          legenda="Conversa do simulado"
+          :pagina="pagina"
+          :legenda="pagina ? pagina.legenda : 'Conversa do simulado'"
         />
 
         <div class="simulado__painel">
@@ -157,6 +160,8 @@ export default {
       etapaId: null,
       // Mensagens exibidas no celular; crescem conforme as escolhas
       conversa: [],
+      // Página falsa aberta por um link (substitui a conversa no celular)
+      pagina: null,
       // Índices das opções erradas já tentadas na etapa atual
       tentadas: [],
       // Caixa de retorno atual: { chave, tipo, titulo, explicacao }
@@ -200,6 +205,7 @@ export default {
       if (!this.temSimulado) return
 
       this.conversa = []
+      this.pagina = null
       this.retorno = null
       this.errou = false
       this.finalizado = false
@@ -233,6 +239,8 @@ export default {
 
       this.errou = true
       this.conversa.push(...(opcao.mensagensExtras || []))
+      // Tocou no link: o celular mostra a página que ele abriria
+      if (opcao.pagina) this.pagina = opcao.pagina
 
       if (opcao.proxima) {
         this.irParaEtapa(opcao.proxima)
@@ -242,7 +250,7 @@ export default {
 
       this.mostrarRetorno({
         tipo: 'erro',
-        titulo: 'Não foi uma boa escolha',
+        titulo: 'Há uma opção mais segura',
         explicacao: opcao.explicacao
       })
     },

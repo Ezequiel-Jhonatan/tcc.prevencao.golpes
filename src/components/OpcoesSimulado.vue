@@ -29,7 +29,7 @@
           <span class="opcoes-simulado__texto">
             {{ opcao.texto }}
             <span v-if="foiTentada(indice)" class="opcoes-simulado__aviso">
-              Não foi uma boa escolha
+              Há uma opção mais segura
             </span>
           </span>
         </button>
@@ -122,10 +122,10 @@ export default {
   }
 
   // Errada já tentada: continua legível (sem opacidade baixa), mas com
-  // fundo rosa, "X" e o aviso em texto, para não depender só da cor.
+  // fundo âmbar, "X" e o aviso em texto, para não depender só da cor.
   &--tentada {
-    border-color: #b23a5a;
-    background: var(--identidade-rosa);
+    border-color: var(--cor-ambar-borda);
+    background: var(--cor-ambar-claro);
     cursor: default;
   }
 }
@@ -144,7 +144,7 @@ export default {
 
   .opcoes-simulado__opcao--tentada & {
     background: #fff;
-    color: #b23a5a;
+    color: var(--cor-ambar-escuro);
   }
 }
 

@@ -1,8 +1,9 @@
 /**
  * Glossário da plataforma: fonte única das explicações de termos.
  *
- * Usado pela lupa nos textos dos conteúdos (TermoGlossario) e, no futuro,
- * pela página Glossário. Nos textos, um termo é marcado assim:
+ * Usado pela lupa nos textos dos conteúdos (TermoGlossario) e pela página
+ * Glossário, que lista todos os termos em ordem alfabética (a ordem deste
+ * arquivo não importa). Nos textos, um termo é marcado assim:
  * [[id-do-termo|texto exibido]]
  *
  * Explicações em linguagem simples, sem outros termos técnicos.
@@ -42,7 +43,37 @@ export const glossario = [
     id: 'aplicativo-oficial',
     termo: 'Aplicativo oficial',
     explicacao:
-      'O aplicativo verdadeiro do banco, baixado da loja do celular (Play Store ou App Store) e publicado pelo próprio banco.'
+      'O aplicativo verdadeiro de uma empresa, como o banco ou a operadora de celular, baixado da loja do celular (Play Store ou App Store) e publicado pela própria empresa.'
+  },
+  {
+    id: 'programa-fidelidade',
+    termo: 'Programa de fidelidade',
+    explicacao:
+      'Programa de uma empresa (operadora de celular, banco, loja) que dá pontos para o cliente trocar por descontos ou produtos. Golpistas inventam pontos "vencendo" para apressar você.'
+  },
+  {
+    id: 'inss',
+    termo: 'INSS',
+    explicacao:
+      'Instituto Nacional do Seguro Social, o órgão do governo que paga as aposentadorias e pensões. Ele não pede documento, foto nem senha por mensagem.'
+  },
+  {
+    id: 'consignado',
+    termo: 'Empréstimo consignado',
+    explicacao:
+      'Empréstimo pago com descontos todo mês, direto na aposentadoria ou no salário. Com seus documentos e uma foto do seu rosto, golpistas conseguem fazer um no seu nome.'
+  },
+  {
+    id: 'selfie',
+    termo: 'Selfie',
+    explicacao:
+      'Foto do próprio rosto, tirada com a câmera do celular. Bancos e o governo usam a selfie para confirmar que é você mesmo.'
+  },
+  {
+    id: 'prova-de-vida',
+    termo: 'Prova de vida',
+    explicacao:
+      'Confirmação de que o aposentado continua vivo, para o pagamento não parar. Hoje, na maioria das vezes, o próprio governo faz essa confirmação sozinho, sem você precisar fazer nada.'
   },
   {
     id: 'boletim-ocorrencia',

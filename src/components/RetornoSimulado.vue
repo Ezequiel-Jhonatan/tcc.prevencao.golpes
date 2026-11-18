@@ -40,14 +40,14 @@ export default {
   components: { TextoRico },
 
   props: {
-    // "acerto" (verde) ou "erro" (rosa, tom acolhedor)
+    // "acerto" (verde) ou "erro" (âmbar, tom acolhedor)
     tipo: {
       type: String,
       required: true,
       validator: valor => ['acerto', 'erro'].includes(valor)
     },
 
-    // Ex.: "Parabéns!" ou "Não foi uma boa escolha"
+    // Ex.: "Parabéns!" ou "Há uma opção mais segura"
     titulo: {
       type: String,
       required: true
@@ -104,13 +104,13 @@ export default {
     }
   }
 
-  // Rosa claro (cor de identidade "rosa"): acolhedor, sem vermelho de alarme
+  // Âmbar claro: acolhedor, sem o vermelho que transmite falha
   &--erro {
-    border-color: #b23a5a;
-    background: var(--identidade-rosa);
+    border-color: var(--cor-ambar-borda);
+    background: var(--cor-ambar-claro);
 
     .retorno-simulado__titulo {
-      color: #8a2442;
+      color: var(--cor-ambar-escuro);
     }
   }
 }

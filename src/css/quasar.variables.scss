@@ -15,6 +15,12 @@ $laranja-claro: #fde3cf; // trilho da barra de progresso, fundos suaves
 $laranja-forte: #c0662e; // preenchimento da barra e contorno de foco (3,3:1)
 $laranja-terroso: #a8521c; // manchetes, capitular e marcadores (5,1:1 no fundo)
 
+// Âmbar suave da escolha errada no simulado: sinaliza "tente outra" sem o
+// vermelho de falha, que desanima o público idoso.
+$ambar-claro: #fdf0c8; // fundo (texto marrom a 11,1:1)
+$ambar-borda: #b7791f; // contorno (3,5:1 no fundo creme)
+$ambar-escuro: #7a4a00; // título e ícone (6,9:1 sobre o âmbar claro)
+
 // Cores do Quasar
 // Atenção: nunca use texto branco sobre $primary (contraste de 1,6:1).
 $primary: $laranja-pastel;

@@ -13,10 +13,12 @@
  *
  * Campos da página de conteúdo (ver mensagem-gerente-banco.js):
  * - manchete, introducao, ilustracao, sinais (3), protecao
+ * - contato (da ilustração e do simulado): { nome, status, icone? }; icone é
+ *   o ícone Material do avatar (sem ele, aparece o de banco)
  *
  * Campo do simulado (opcional; sem ele, o simulado mostra "Em construção"):
  * simulado: {
- *   contato: { nome, status },   // topo da conversa no celular
+ *   contato: { nome, status, icone? }, // topo da conversa no celular
  *   inicio: 'id-da-etapa',       // primeira etapa
  *   etapas: {
  *     'id-da-etapa': {
@@ -28,21 +30,30 @@
  *         correta,
  *         explicacao,            // aceita a marcação do TextoRico
  *         proxima?,              // etapa seguinte, depois de um erro
- *         mensagensExtras?       // continuação da conversa, depois de um erro
+ *         mensagensExtras?,      // continuação da conversa, depois de um erro
+ *         pagina?                // página que o link abriu (ver abaixo)
  *       }]
  *     }
  *   }
  * }
+ *
+ * Com `pagina`, o celular troca a conversa pela página falsa que o link
+ * abriria (exemplo em sms-operadora.js). Ela fica até o fim do simulado.
+ * pagina: {
+ *   legenda,                     // legenda do celular enquanto ela aparece
+ *   endereco,                    // endereço falso na barra do navegador
+ *   imagem, descricaoImagem,     // print do site imitado (src/assets/simulados/)
+ *   formulario: {                // o pedido do golpe, em texto de verdade
+ *     titulo, texto, botao,
+ *     campos: [{ rotulo, valor }]
+ *   }
+ * }
  */
 import mensagemGerenteBanco from './mensagem-gerente-banco'
-import eviteSerEnganado from './evite-ser-enganado'
-import protecaoDeDados from './protecao-de-dados'
+import smsOperadora from './sms-operadora'
+import mensagemInss from './mensagem-inss'
 
-export const conteudos = [
-  mensagemGerenteBanco,
-  eviteSerEnganado,
-  protecaoDeDados
-]
+export const conteudos = [mensagemGerenteBanco, smsOperadora, mensagemInss]
 
 /**
  * Busca um conteúdo pelo id. Retorna undefined se não existir.

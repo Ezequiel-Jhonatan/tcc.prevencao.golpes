@@ -10,16 +10,60 @@
   topo e proporção de celular. O visual da conversa lembra um aplicativo
   de mensagens, mas é genérico de propósito: sem logotipo nem nome do
   WhatsApp e sem banco real.
+
+  Variante `pagina` (simulado): mostra a página falsa que o link abriria,
+  com a barra de endereço, o print do site imitado e o pedido do golpe
+  (formulário) por cima, em texto de verdade.
 -->
 <template>
   <figure class="celular-conversa">
     <div class="celular-conversa__aparelho">
       <span class="celular-conversa__camera" aria-hidden="true" />
 
-      <div class="celular-conversa__tela">
+      <div v-if="pagina" class="celular-conversa__tela">
+        <!-- Barra do navegador com o endereço falso -->
+        <div class="celular-conversa__navegador">
+          <span class="celular-conversa__endereco">
+            <q-icon name="language" size="18px" aria-hidden="true" />
+            <span class="sr-only">Endereço da página:</span>
+            {{ pagina.endereco }}
+          </span>
+        </div>
+
+        <div class="celular-conversa__pagina">
+          <div class="celular-conversa__print">
+            <img :src="pagina.imagem" :alt="pagina.descricaoImagem" />
+          </div>
+
+          <div v-if="pagina.formulario" class="celular-conversa__formulario">
+            <strong class="celular-conversa__formulario-titulo">
+              {{ pagina.formulario.titulo }}
+            </strong>
+            <p class="q-ma-none">{{ pagina.formulario.texto }}</p>
+
+            <dl class="celular-conversa__campos">
+              <div
+                v-for="campo in pagina.formulario.campos"
+                :key="campo.rotulo"
+                class="celular-conversa__campo-site"
+              >
+                <dt>{{ campo.rotulo }}</dt>
+                <dd>{{ campo.valor }}</dd>
+              </div>
+            </dl>
+
+            <!-- Não é um botão de verdade: faz parte da ilustração -->
+            <span class="celular-conversa__botao-site">
+              {{ pagina.formulario.botao }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div v-else class="celular-conversa__tela">
         <div class="celular-conversa__contato">
           <span class="celular-conversa__avatar" aria-hidden="true">
-            <q-icon name="account_balance" size="22px" />
+            <q-icon :name="contato.icone || 'account_balance'" size="22px" />
           </span>
           <span>
             <span class="celular-conversa__nome">{{ contato.nome }}</span>
@@ -29,7 +73,14 @@
           </span>
         </div>
 
-        <ol class="celular-conversa__mensagens">
+        <!-- Rolável como num aplicativo de mensagens. Quando a conversa
+             passa da tela, vira parada do Tab para rolar pelo teclado. -->
+        <ol
+          ref="mensagens"
+          class="celular-conversa__mensagens"
+          aria-label="Mensagens da conversa"
+          :tabindex="rolavel ? 0 : undefined"
+        >
           <li
             v-for="(mensagem, indice) in mensagens"
             :key="indice"
@@ -63,7 +114,7 @@ export default {
   name: 'CelularConversa',
 
   props: {
-    // Contato no topo da conversa: { nome, status }
+    // Contato no topo da conversa: { nome, status, icone? }
     contato: {
       type: Object,
       required: true
@@ -79,12 +130,60 @@ export default {
     legenda: {
       type: String,
       default: ''
+    },
+
+    // Página aberta no lugar da conversa (formato em src/data/conteudos/index.js)
+    pagina: {
+      type: Object,
+      default: null
     }
+  },
+
+  data() {
+    return {
+      // A conversa passa da altura da tela (precisa rolar)
+      rolavel: false,
+      // Quantas mensagens já estavam na tela, para achar a primeira nova
+      quantidadeExibida: this.mensagens.length
+    }
+  },
+
+  watch: {
+    // O simulado acrescenta mensagens na mesma lista (push) e troca a
+    // lista inteira ao reiniciar; por isso o watch é profundo.
+    mensagens: {
+      handler(novas, antigas) {
+        const primeiraNova = novas === antigas ? this.quantidadeExibida : 0
+        this.quantidadeExibida = novas.length
+        this.$nextTick(() => this.rolarAte(primeiraNova))
+      },
+      deep: true
+    }
+  },
+
+  mounted() {
+    this.rolarAte(0)
   },
 
   methods: {
     rotuloRemetente(de) {
       return de === 'vitima' ? 'Você' : this.contato.nome
+    },
+
+    // Rola até o fim da conversa, como num aplicativo de mensagens, mas
+    // sem deixar a primeira mensagem nova escondida acima: se as novas não
+    // couberem, a leitura começa por ela. O navegador limita o valor ao
+    // fim da lista.
+    rolarAte(indice) {
+      const lista = this.$refs.mensagens
+      // Na variante `pagina` não há conversa
+      if (!lista) return
+
+      this.rolavel = lista.scrollHeight > lista.clientHeight
+
+      const balao = lista.children[indice]
+      if (!balao) return
+      lista.scrollTop = balao.offsetTop - lista.firstElementChild.offsetTop
     }
   }
 }
@@ -105,8 +204,10 @@ $cor-balao-vitima: #dcf8c6; // texto marrom: 10,7:1
   gap: 0.75rem;
 }
 
-// Moldura do aparelho. A proporção 1:2 dá o formato de celular; se o
-// texto crescer (zoom), o aparelho cresce junto em vez de cortar.
+// Moldura do aparelho. A proporção 1:2 dá o formato de celular e mantém o
+// tamanho fixo: a conversa rola dentro da tela. Se o cabeçalho, a barra de
+// digitação ou a página falsa crescerem (zoom), o aparelho cresce junto em
+// vez de cortar.
 .celular-conversa__aparelho {
   position: relative;
   display: flex;
@@ -175,13 +276,31 @@ $cor-balao-vitima: #dcf8c6; // texto marrom: 10,7:1
 }
 
 .celular-conversa__mensagens {
-  flex: 1;
+  // Base para o offsetTop dos balões usado na rolagem automática
+  position: relative;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-height: 0;
   margin: 0;
   padding: 1rem 0.75rem;
+  overflow-y: auto;
+  // Fina, mas visível: avisa que há mais mensagens acima
+  scrollbar-width: thin;
+  // Sem isso, o tamanho das mensagens entra na altura mínima do aparelho e
+  // o aspect-ratio deixa o celular esticar a cada mensagem nova.
+  contain: size;
   list-style: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+
+  // A tela corta o que passa da borda (overflow: hidden): contorno por dentro
+  &:focus-visible {
+    outline-offset: -3px;
+  }
 }
 
 .celular-conversa__balao {
@@ -237,6 +356,123 @@ $cor-balao-vitima: #dcf8c6; // texto marrom: 10,7:1
   font-size: 1rem;
   font-style: italic;
   color: var(--cor-texto-secundario);
+  text-align: center;
+}
+
+// ---- Variante `pagina`: navegador com a página falsa ----
+
+// Cinza claro de navegador; o texto escuro fica acima de 12:1.
+.celular-conversa__navegador {
+  // Espaço extra no topo para a "câmera", como no cabeçalho da conversa
+  padding: 1.75rem 0.75rem 0.6rem;
+  background: #ececec;
+}
+
+.celular-conversa__endereco {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: #fff;
+  color: #333;
+  font-size: 0.875rem;
+  // Endereço longo quebra em vez de vazar da tela
+  overflow-wrap: anywhere;
+}
+
+// Print em cima e formulário embaixo, no fluxo normal: com zoom, o
+// formulário cresce, o print encolhe até o mínimo e o aparelho cresce.
+.celular-conversa__pagina {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #fff;
+}
+
+.celular-conversa__print {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 150px;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  // Véu escuro: o formulário parece uma janela aberta por cima do site
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+
+.celular-conversa__formulario {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: -16px;
+  padding: 0.75rem 0.75rem 1rem;
+  border-radius: 16px 16px 0 0;
+  background: #fff;
+  color: #222;
+  font-size: 1rem;
+  line-height: 1.3;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.celular-conversa__formulario-titulo {
+  font-size: 1.05rem;
+}
+
+// O primeiro campo (número do cartão) ocupa a linha toda; os outros ficam
+// em pares, para sobrar espaço para o print do site.
+.celular-conversa__campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+// Coluna com a caixa embaixo: se um rótulo quebrar em duas linhas
+// ("Código de segurança"), as caixas do par continuam alinhadas.
+.celular-conversa__campo-site {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+
+  &:first-child {
+    grid-column: 1 / -1;
+  }
+
+  dt {
+    font-size: 0.875rem;
+    color: #555; // 7,5:1 sobre o branco
+  }
+
+  dd {
+    margin: 0;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #999;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+}
+
+// Vermelho escuro, parecido com os botões do site imitado (branco: 6,5:1)
+.celular-conversa__botao-site {
+  padding: 0.4rem;
+  border-radius: 999px;
+  background: #b3261e;
+  color: #fff;
+  font-weight: 700;
   text-align: center;
 }
 </style>

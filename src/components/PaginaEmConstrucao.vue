@@ -2,7 +2,7 @@
   Página provisória "Em construção".
 
   Usada pelas páginas que ainda não foram implementadas (conteúdos sem
-  texto, simulado, Glossário, Caí num golpe), para que a navegação já
+  texto, simulado, Caí num golpe), para que a navegação já
   funcione.
 -->
 <template>
